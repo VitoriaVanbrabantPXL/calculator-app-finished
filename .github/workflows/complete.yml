@@ -12,9 +12,12 @@ jobs:
           node-version: '18'
           cache: 'npm'
       - run: npm install
-      - run: npm test
-      - run: zip -r deployment-package.zip . -x "*.git*" "*.github*" "*.zip"
-      - run: ls -alh
-      
+      - run: npm test -- --coverage --coverageReporters=lcov
       - name: Better Test Reports Action
         uses: mridang/action-test-reporter@v1.7.0
+        with:
+          coverage-file: coverage/lcov.info
+          working-directory: .
+          upload-coverage-report: true
+      - run: zip -r deployment-package.zip . -x "*.git*" "*.github*" "*.zip" "coverage/*" "node_modules/*"
+      - run: ls -alh
