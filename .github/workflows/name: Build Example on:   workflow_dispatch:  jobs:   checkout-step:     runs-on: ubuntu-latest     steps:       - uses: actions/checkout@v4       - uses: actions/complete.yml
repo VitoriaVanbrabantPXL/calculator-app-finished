@@ -1,0 +1,17 @@
+name: Build Example
+on:
+  workflow_dispatch:
+
+jobs:
+  checkout-step:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - run: npm install
+      - run: npm test
+      - run: zip -r deployment-package.zip . -x "*.git*" "*.github*" "*.zip"
+      - run: ls -alh
