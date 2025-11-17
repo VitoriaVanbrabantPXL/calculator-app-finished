@@ -1,4 +1,4 @@
-name: Exercise 2: Docker build & push integratie
+name: Docker build & push integratie
 on:
   workflow_dispatch:
 
